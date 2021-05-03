@@ -22,14 +22,14 @@ JavaScript objects are simple associative containers, wherein a string key is ma
 
 *MongoDB stores data in BSON* format both internally, and over the network, but that doesn’t mean you can’t think of MongoDB as a JSON database. *Anything you can represent in JSON* can be natively stored in MongoDB, and retrieved just as easily in JSON.  
 The following are some example documents (in JavaScript / Python style syntax) and their corresponding BSON representations.  
-```{"hello": "world"}```  
+`{"hello": "world"}`  
 > \x16\x00\x00\x00           // total document size  
 > \x02                       // 0x02 = type String  
 > hello\x00                  // field name  
 > \x06\x00\x00\x00world\x00  // field value  
 > \x00                       // 0x00 = type EOO ('end of object')  
 
-```{"BSON": ["awesome", 5.05, 1986]}```  
+`{"BSON": ["awesome", 5.05, 1986]}`  
 > \x31\x00\x00\x00  
 > \x04BSON\x00  
 > \x26\x00\x00\x00  
@@ -42,6 +42,7 @@ The following are some example documents (in JavaScript / Python style syntax) a
 ---  
 
 |  | JSON | BSON |  
+|---|---|---|
 | Encoding | UTF-8 String | Binary |  
 | Data Support | String, Boolean, Number, Array | String, Boolean, Number (Integer, Float, Long, Decimal128...), Array, Date, Raw Binary |   
 | Readability | Human and Machine | Machine Only | 
