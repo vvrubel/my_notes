@@ -4,7 +4,7 @@ Quiery must use valid JSON.
 Returned documents will contain the requested *field:value* pairs in them. 
 
 > We looked at the sample_training.zips collection and issued the following queries:  
-> ```{"state": "NY"}```
+> ```{"state": "NY"}```  
 > ```{"state": "NY", "city": "ALBANY"}```  
 
 ---
