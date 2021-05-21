@@ -5,13 +5,9 @@ In the next section of `README.md` you will find **Table of contents** which des
 
 ## MongoDB basics  
 
-1. What is MongoDB?
-   - [Connect to the Atlas Cluster](https://github.com/vvrubel/my_notes/blob/main/mongodb-basic/what-is.md)  
+1. [Connect to the Atlas Cluster and Data Format](https://github.com/vvrubel/my_notes/blob/main/mongodb-basic/what-is.md)  
 
-2. [Importing, Exporting, and Querying Data]  
-   - [Data Format: JSON vs. BSON](https://github.com/vvrubel/my_notes/blob/main/mongodb-basic/data-format.md)  
-   - [Importing and Exporting Data](https://github.com/vvrubel/my_notes/blob/main/mongodb-basic/importing-exporting-data.md)  
-   - [Querying Data: Examples](https://github.com/vvrubel/my_notes/blob/main/mongodb-basic/querying-data.md)  
+2. [Importing, Exporting, and Querying Data](https://github.com/vvrubel/my_notes/blob/main/mongodb-basic/importing-exporting-data.md)
 
 3. [Creating and Manipulating Documents]  
 
