@@ -16,13 +16,13 @@ To learn more about [Schema Validation, check out our excellent documentation pa
 > ```
 > $ mongoimport --uri="mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<collection>" --drop <name>.json
 > ```
-1. Get a random document from the *inspections* collection
+1. Get a random document from the **inspections** collection
    ```
    $ mongo "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.8h1hn.mongodb.net/admin"
    $ use inspections  
    $ db.inspections.findOne();
    ```
-2. Copy this random document, and insert it back to the *inspections* collection. Do you get
+2. Copy this random document, and insert it back to the **inspections** collection. Do you get
    a *__"Duplicate Key"__ error*?
    ```
    $ db.inspections.insert({
@@ -41,7 +41,7 @@ To learn more about [Schema Validation, check out our excellent documentation pa
        }  
    })
    ```
-3. Insert that document into the *inspections* collection **without the `_id` field** to get a
+3. Insert that document into the **inspections** collection **without the `_id` field** to get a
    successful insert. Did it work?
    ```
    $ db.inspections.insert({
