@@ -136,14 +136,40 @@ Rule: data is stored in the way that it is used.
 Check out our [documentation](https://docs.mongodb.com/manual/core/data-modeling-introduction/) 
 
 ## Upsert - Update or Insert?
-Everything in MQL that is used to locate a document in a collection can also be used to modify this document. 
-```db.<collection>.updateOne( {<query to locate>}, {<update>} )```
-Upsert is a hybrid of update and insert, it should only be used hen it is needed
-```db.<collection>.updateOne( {<query>}, {<update>}, { "upsert": true } )``` 
-If `upsert` is true:
-Is there a match?
-- yes - update the matched document
-- no - insert a new document
+Everything in MQL that is used to *locate* a document in a collection can also be used to *modify* this document.   
+```
+db.<collection>.updateOne( {<query to locate>}, {<update>} )
+```
+`Upsert` is a hybrid of update and insert, it should only be used hen it is needed  
+```
+db.<collection>.updateOne( {<query>}, {<update>}, { "upsert": true } )
+``` 
+### The `upsert` option: 
+  
+- only needs its value specified if you want **to change the default* **false** *setting* to **true**
+- `false` by default
+- `upsert: true` and the query predicate returns an *empty cursor*, 
+  the `update` operation creates a *new document* using the directive from the query predicate, and the *update* predicate. 
+  (performs an insert if the query predicate doesn't return a matching document)
+- When `upser: false` and the query predicate returns an empty cursor then there will be no updated documents as a result of this operation.  
+  (an update will happen only when the query predicate is matched with a document from the collection)
+
+
+`upsert: true`
+- conditional updates:  
+  Is there a match?
+  - yes - update the matched document
+  - no - insert a new document
+
+`upsert: false`
+- update an existing document
+- insert a brand new document
+
+query | `upsert:true` |	`upsert:false`
+---|---|---
+match | update | update
+no match | insert |	nothing
+
 ```
 db.iot.updateOne({ "sensor": r.sensor, "date": r.date,
                    "valcount": { "$lt": 48 } },
@@ -152,3 +178,21 @@ db.iot.updateOne({ "sensor": r.sensor, "date": r.date,
                  { "upsert": true })
 ```
 
+## What actions are available to you via the Aggregation Builder in the Atlas Data Explorer?
+
+- Syntax for each selected aggregation stage.
+- Export pipeline to a programming language.
+- A preview of the data in the pipeline at each selected stage.
+
+To learn more about Realm check out our [Realm documentation](https://docs.mongodb.com/realm/)
+
+To learn about application development with MongoDB take a [course from our Developer series](https://university.mongodb.com/learning_paths/developer)
+
+Check out this [Charts tutorial](https://docs.mongodb.com/charts/saas/tutorial/order-data/order-data-tutorial-overview/)
+
+## What is MongoDB Charts?
+- A product that helps you build visualizations of the data stored in your Atlas Cluster.
+
+Follow this link to [download MongoDB Compass](https://www.mongodb.com/try/download/compass)
+
+To learn more about performance and indexing with MongoDB, take our [MongoDB Performance Course](https://university.mongodb.com/courses/M201/about)
