@@ -11,10 +11,10 @@ In the next section of `README.md` you will find **Table of content** which desc
 
 3. [Creating and Manipulating Documents](https://github.com/vvrubel/my_notes/blob/main/mongodb-basic/docs-find-delete-update-3.md)  
 
-4. [Advanced CRUD Operations]  
+4. [Advanced CRUD Operations
 
 5. [Indexing and Aggregation Pipeline]
 
-6. [Next Steps]
+
 
 
