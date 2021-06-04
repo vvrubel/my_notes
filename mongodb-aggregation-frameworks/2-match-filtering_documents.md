@@ -2,7 +2,7 @@
 ## Filtering documents with `$match`
 
 [Documentation page](https://docs.mongodb.com/manual/reference/operator/aggregation/match/?jmp=university)
-```markdown
+```
 { $match: { <query> } }
 ```
 
@@ -105,11 +105,12 @@ db.deliveries.aggregate([
 ```
 
 [$size (aggregation)](https://docs.mongodb.com/manual/reference/operator/aggregation/size/#mongodb-expression-exp.-size)
+
 Counts and returns the total number of items in an array.
 
-$size has the following syntax:
+`$size` has the following syntax:
 
-{ $size: <expression> }
+`{ $size: <expression> }`
 
 The argument for $size can be any expression as long as it resolves to an array. For more information on expressions, see Expressions.
 
@@ -157,7 +158,7 @@ This presents a problem, since comparing "Roberto Benigni" to "Roberto Benigni (
 
 `$map` lets us iterate over an array, element by element, performing some transformation on each element. The result of that transformation will be **returned in the same place** as the original element.
 
-Within `$map`, the argument to `input` can be any expression as long as it resolves to an array. The argument to `as` is the name of the variable we want to use to refer to each element of the array when performing whatever logic we want. The field as is optional, and if omitted each element must be referred to as `$$this`:: The argument to `in` is the expression that is applied to each element of the `input` array, referenced with the variable name specified in `as`, and prepending two dollar signs:
+Within `$map`, the argument to `input` can be any expression as long as it resolves to an array. The argument to `as` is the name of the variable we want to use to refer to each element of the array when performing whatever logic we want. The field `as` is optional, and if omitted each element must be referred to as `$$this`:: The argument to `in` is the expression that is applied to each element of the `input` array, referenced with the variable name specified in `as`, and prepending two dollar signs:
 ```
 writers: {
   $map: {
@@ -167,9 +168,9 @@ writers: {
   }
 }
 ```
-in is where the work is performed. Here, we use the $arrayElemAt expression, which takes two arguments, the array and the index of the element we want. We use the $split expression, splitting the values on " (".
+in is where the work is performed. Here, we use the `$arrayElemAt` expression, which takes two arguments, the array and the index of the element we want. We use the `$split` expression, splitting the values on " (".
 
-If the string did not contain the pattern specified, the only modification is it is wrapped in an array, so $arrayElemAt will always work
+If the string did not contain the pattern specified, the only modification is it is wrapped in an array, so `$arrayElemAt` will always work
 ```
 writers: {
   $map: {
@@ -322,5 +323,23 @@ Lastly, we follow with a `$match` stage, only allowing documents through where `
 ```
 
 ```
-
+var pipeline = [{$project: {
+  "_id": 0,
+  "countries": 1,
+  "tomatoes.viewer.rating": 1,
+  "title": 1,
+  "cast": 1,
+  "favs": {$setIntersection: [ "$cast", ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"]] },
+}}, {$match: {
+ favs: { $elemMatch: { $exists: true } },
+ countries: "USA",
+ "tomatoes.viewer.rating": { $gte: 3 },
+}}, {$addFields: {
+  num_favs: { $size: "$favs"}
+}}, {$sort: {
+  "num_favs": -1,
+  "tomatoes.viewer.rating": -1, 
+  "title": -1
+}}, {$skip: 24}]
+db.movies.aggregate( pipeline )
 ```
