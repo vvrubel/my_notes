@@ -40,3 +40,41 @@ For movies released in the `USA` with a `tomatoes.viewer.rating` greater than or
 Sort your results by `num_favs`, `tomatoes.viewer.rating`, and `title`, all in descending order.
 
 What is the `title` of the 25th film in the aggregation result?
+```
+[{$match: {
+  languages: "English",
+  year: { $gte: 1990 },
+  "imdb.votes": { "$exists" : true, "$ne" : ""},
+  "imdb.rating": { "$exists" : true, "$ne" : ""}
+}}, {$addFields: {
+  votes: { $toDouble: "$imdb.votes"},
+  rating: { $toDouble: "$imdb.rating"}
+}}, {$addFields: {
+  scaled_votes: { 
+    $add:[
+      1,
+      {
+        $multiply: [
+          9, 
+          {
+            $divide: [
+              { $subtract: [ "$votes", 5 ] },
+              1521100
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}}, {$project: {
+  _id: 0, 
+  title: 1,
+  scaled_votes:1,
+  normalized_rating: { $avg: [ "$scaled_votes", "$rating" ] }
+}}, {$match: {
+  scaled_votes: { $gte: 0 },
+  normalized_rating: { $gte: 0 },
+}}, {$sort: {
+  normalized_rating: 1
+}}]
+```
